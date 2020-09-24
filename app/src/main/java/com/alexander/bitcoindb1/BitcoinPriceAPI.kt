@@ -9,6 +9,6 @@ interface BitcoinPriceAPI {
     fun requestBitcoinPriceList(): Observable<BitcoinPriceListResponse>
 
     companion object {
-        const val BITCOIN_PRICE_LIST = "/charts"
+        const val BITCOIN_PRICE_LIST = "/charts/transactions-per-second"
     }
 }

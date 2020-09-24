@@ -11,6 +11,7 @@ import com.anychart.graphics.vector.Stroke
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
+import java.util.ArrayList
 
 
 class MainPresenter(
@@ -38,6 +39,14 @@ class MainPresenter(
     private fun setCharCartesian(bitcoinPriceList: List<BitcoinPrice>): Cartesian {
         val cartesian = AnyChart.line()
 
+        val seriesData = ArrayList<DataEntry>()
+        bitcoinPriceList.forEach {
+            seriesData.add(CustomDataChart(it.time, it.price))
+        }
+
+        val set = Set.instantiate()
+        set.data(seriesData)
+
         cartesian.animation(true)
 
         cartesian.padding(10.0, 20.0, 5.0, 20.0)
@@ -53,12 +62,6 @@ class MainPresenter(
 
         cartesian.yAxis(0).title("Number of Bottles Sold (thousands)")
         cartesian.xAxis(0).labels().padding(5.0, 5.0, 5.0, 5.0)
-
-        val seriesData: MutableList<DataEntry> = ArrayList()
-        seriesData.addAll(bitcoinPriceList)
-
-        val set = Set.instantiate()
-        set.data(seriesData)
 
         val series1Mapping = set.mapAs("{ x: 'x', value: 'value' }")
 
