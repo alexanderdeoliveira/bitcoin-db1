@@ -32,6 +32,7 @@ class MainPresenter(
                 .subscribeOn(Schedulers.io())
                 .subscribe { response ->
                     mView.setBitcoinPriceChart(setCharCartesian(response.bitcoinPriceList))
+                    mView.setLastBitcoinPrice(response.bitcoinPriceList[response.bitcoinPriceList.size-1])
                 }
         )
     }

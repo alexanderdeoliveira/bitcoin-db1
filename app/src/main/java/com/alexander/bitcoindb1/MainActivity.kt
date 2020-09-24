@@ -31,7 +31,11 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     }
 
     override fun showBitcoinPriceChart() {
-        any_chart_view.isVisible = true
+        TODO("Not yet implemented")
+    }
+
+    override fun setLastBitcoinPrice(bitcoinPrice: BitcoinPrice) {
+        last_bitcoin_price.text = bitcoinPrice.price.toString()
     }
 
     override fun setBitcoinPriceChart(cartesian: Cartesian) {

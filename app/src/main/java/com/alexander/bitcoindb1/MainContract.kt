@@ -7,6 +7,7 @@ interface MainContract {
         fun bindingView()
         fun showLastBitcoinPrice()
         fun showBitcoinPriceChart()
+        fun setLastBitcoinPrice(bitcoinPrice: BitcoinPrice)
         fun setBitcoinPriceChart(cartesian: Cartesian)
     }
 
