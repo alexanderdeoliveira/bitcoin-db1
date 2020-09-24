@@ -1,6 +1,7 @@
 package com.alexander.bitcoindb1
 
 import android.os.Parcelable
+import com.anychart.chart.common.dataentry.ValueDataEntry
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
@@ -12,4 +13,5 @@ data class BitcoinPrice(
 
     @SerializedName("y")
     var price: Float
-) : Parcelable
+
+) : ValueDataEntry(time, price), Parcelable
