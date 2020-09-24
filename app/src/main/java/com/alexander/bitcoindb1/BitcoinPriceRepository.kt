@@ -7,7 +7,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 class BitcoinPriceRepository {
 
     private val retrofit = Retrofit.Builder()
-        .baseUrl("BaseUrl")
+        .baseUrl("https://api.blockchain.info")
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
@@ -17,7 +17,7 @@ class BitcoinPriceRepository {
         mAPI = retrofit.create(BitcoinPriceAPI::class.java)
     }
 
-    fun requestBitcoinPriceList() : Observable<List<BitcoinPrice>> {
+    fun requestBitcoinPriceList() : Observable<BitcoinPriceListResponse> {
         return mAPI.requestBitcoinPriceList()
     }
 }

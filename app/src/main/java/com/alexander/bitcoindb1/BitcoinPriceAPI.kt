@@ -6,9 +6,9 @@ import retrofit2.http.GET
 interface BitcoinPriceAPI {
 
     @GET(BITCOIN_PRICE_LIST)
-    fun requestBitcoinPriceList(): Observable<List<BitcoinPrice>>
+    fun requestBitcoinPriceList(): Observable<BitcoinPriceListResponse>
 
     companion object {
-        const val BITCOIN_PRICE_LIST = ""
+        const val BITCOIN_PRICE_LIST = "/charts"
     }
 }
