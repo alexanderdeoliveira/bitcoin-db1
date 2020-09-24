@@ -16,7 +16,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        presenter = MainPresenter(this)
+        presenter = MainPresenter(this, this)
         presenter!!.init()
         presenter!!.getBitcoinPriceList()
     }

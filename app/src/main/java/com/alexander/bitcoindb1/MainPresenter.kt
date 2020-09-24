@@ -1,5 +1,7 @@
 package com.alexander.bitcoindb1
 
+import android.content.Context
+import androidx.lifecycle.LiveData
 import com.anychart.AnyChart
 import com.anychart.chart.common.dataentry.DataEntry
 import com.anychart.charts.Cartesian
@@ -16,13 +18,20 @@ import java.util.ArrayList
 
 class MainPresenter(
     private val mView: MainContract.View,
+    private val context: Context
 ): MainContract.Presenter {
 
     private var disposable = CompositeDisposable()
-    private var repository = BitcoinPriceRepository()
+    private lateinit var repository: BitcoinPriceRepository
 
     override fun init() {
+        val bitcoinPriceDAO = AppDatabase.getDatabase(context).bitcoinpPriceDAO()
+        repository = BitcoinPriceRepository(bitcoinPriceDAO)
         mView.bindingView()
+    }
+
+    override fun insertBitcoinPriceList(bitcoinPriceList: List<BitcoinPrice>) {
+        repository.insertBitcoinPriceList(bitcoinPriceList)
     }
 
     override fun getBitcoinPriceList() {
@@ -31,6 +40,7 @@ class MainPresenter(
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe { response ->
+                    repository.insertBitcoinPriceList(response.bitcoinPriceList)
                     mView.setBitcoinPriceChart(setCharCartesian(response.bitcoinPriceList))
                     mView.setLastBitcoinPrice(response.bitcoinPriceList[response.bitcoinPriceList.size-1])
                 }
