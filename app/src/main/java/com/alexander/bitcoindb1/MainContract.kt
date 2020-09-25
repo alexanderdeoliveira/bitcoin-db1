@@ -13,7 +13,6 @@ interface MainContract {
 
     interface Presenter {
         fun init()
-        fun insertBitcoinPriceList(bitcoinPriceList: List<BitcoinPrice>)
         fun getBitcoinPriceList()
     }
 }
