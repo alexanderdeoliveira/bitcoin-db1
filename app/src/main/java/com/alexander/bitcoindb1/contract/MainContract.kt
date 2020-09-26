@@ -1,5 +1,6 @@
-package com.alexander.bitcoindb1
+package com.alexander.bitcoindb1.contract
 
+import com.alexander.bitcoindb1.model.BitcoinPrice
 import com.anychart.charts.Cartesian
 
 interface MainContract {

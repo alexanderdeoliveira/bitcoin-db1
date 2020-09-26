@@ -1,11 +1,10 @@
-package com.alexander.bitcoindb1
+package com.alexander.bitcoindb1.database
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import io.reactivex.rxjava3.core.Completable
-import io.reactivex.rxjava3.core.Single
+import com.alexander.bitcoindb1.model.BitcoinPrice
 
 @Dao
 interface BitcoinPriceDAO {

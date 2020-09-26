@@ -1,24 +1,27 @@
-package com.alexander.bitcoindb1
+package com.alexander.bitcoindb1.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.core.view.isVisible
+import com.alexander.bitcoindb1.contract.MainContract
 import com.alexander.bitcoindb1.databinding.ActivityMainBinding
+import com.alexander.bitcoindb1.model.BitcoinPrice
 import com.anychart.charts.Cartesian
 import kotlinx.android.synthetic.main.activity_main.*
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import org.koin.android.scope.lifecycleScope
+import org.koin.core.parameter.parametersOf
+
 
 class MainActivity : AppCompatActivity(), MainContract.View {
 
-    var presenter: MainPresenter? = null
+    private val presenter by lazy {
+        lifecycleScope.get<MainContract.Presenter> { parametersOf(this) }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        presenter = MainPresenter(this, this)
-        presenter!!.init()
-        presenter!!.getBitcoinPriceList()
+        presenter.init()
+        presenter.getBitcoinPriceList()
     }
 
     override fun bindingView() {

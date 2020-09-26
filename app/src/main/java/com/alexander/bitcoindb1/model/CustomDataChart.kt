@@ -1,4 +1,4 @@
-package com.alexander.bitcoindb1
+package com.alexander.bitcoindb1.model
 
 import com.anychart.chart.common.dataentry.ValueDataEntry
 

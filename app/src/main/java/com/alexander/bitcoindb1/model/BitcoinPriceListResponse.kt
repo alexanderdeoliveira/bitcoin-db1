@@ -1,6 +1,7 @@
-package com.alexander.bitcoindb1
+package com.alexander.bitcoindb1.model
 
 import android.os.Parcelable
+import com.alexander.bitcoindb1.model.BitcoinPrice
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 

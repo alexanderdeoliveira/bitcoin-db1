@@ -1,6 +1,9 @@
-package com.alexander.bitcoindb1
+package com.alexander.bitcoindb1.presenter
 
-import android.content.Context
+import com.alexander.bitcoindb1.contract.MainContract
+import com.alexander.bitcoindb1.model.BitcoinPrice
+import com.alexander.bitcoindb1.model.CustomDataChart
+import com.alexander.bitcoindb1.repository.BitcoinPriceRepository
 import com.anychart.AnyChart
 import com.anychart.chart.common.dataentry.DataEntry
 import com.anychart.charts.Cartesian
@@ -10,7 +13,6 @@ import com.anychart.enums.MarkerType
 import com.anychart.enums.TooltipPositionMode
 import com.anychart.graphics.vector.Stroke
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import java.util.ArrayList
@@ -18,16 +20,13 @@ import java.util.ArrayList
 
 class MainPresenter(
     private val mView: MainContract.View,
-    private val context: Context
+    private val repository: BitcoinPriceRepository
 ): MainContract.Presenter {
 
     private lateinit var disposable: CompositeDisposable
-    private lateinit var repository: BitcoinPriceRepository
 
     override fun init() {
         disposable = CompositeDisposable()
-        val bitcoinPriceDAO = AppDatabase.getDatabase(context).bitcoinpPriceDAO()
-        repository = BitcoinPriceRepository(bitcoinPriceDAO)
         mView.bindingView()
     }
 

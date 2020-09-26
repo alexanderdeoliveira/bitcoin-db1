@@ -1,4 +1,4 @@
-package com.alexander.bitcoindb1
+package com.alexander.bitcoindb1.model
 
 import android.os.Parcelable
 import androidx.room.Entity

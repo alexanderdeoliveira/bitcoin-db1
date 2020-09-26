@@ -1,5 +1,6 @@
-package com.alexander.bitcoindb1
+package com.alexander.bitcoindb1.repository
 
+import com.alexander.bitcoindb1.model.BitcoinPriceListResponse
 import io.reactivex.rxjava3.core.Observable
 import retrofit2.http.GET
 
