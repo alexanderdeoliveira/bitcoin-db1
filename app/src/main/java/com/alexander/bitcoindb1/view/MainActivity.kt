@@ -11,11 +11,14 @@ import com.alexander.bitcoindb1.R
 import com.alexander.bitcoindb1.contract.MainContract
 import com.alexander.bitcoindb1.databinding.ActivityMainBinding
 import com.alexander.bitcoindb1.model.BitcoinPrice
+import com.alexander.bitcoindb1.util.DateUtil
+import com.alexander.bitcoindb1.util.MonetaryUtil
 import com.anychart.charts.Cartesian
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.scope.lifecycleScope
 import org.koin.core.parameter.parametersOf
+import java.util.*
 
 
 class MainActivity : AppCompatActivity(), MainContract.View, AdapterView.OnItemSelectedListener {
@@ -58,7 +61,8 @@ class MainActivity : AppCompatActivity(), MainContract.View, AdapterView.OnItemS
     }
 
     override fun setLastBitcoinPrice(bitcoinPrice: BitcoinPrice) {
-        last_bitcoin_price.text = bitcoinPrice.price.toString()
+        last_bitcoin_price.text = MonetaryUtil.convertToMonetary(bitcoinPrice.price)
+        last_bitcoin_price_date.text = DateUtil.convertToTimeCard(bitcoinPrice.time)
     }
 
     override fun setBitcoinChart(cartesian: Cartesian) {

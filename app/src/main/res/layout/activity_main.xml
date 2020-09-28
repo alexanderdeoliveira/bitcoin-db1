@@ -32,15 +32,35 @@
             android:layout_width="match_parent"
             app:cardCornerRadius="8dp"
             app:cardElevation="8dp"
+            android:layout_marginTop="10dp"
             android:layout_margin="8dp"
-            android:padding="20dp"
             android:visibility="visible">
 
-            <TextView
-                android:id="@+id/last_bitcoin_price"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"/>
+                android:layout_gravity="center"
+                android:padding="15dp"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/last_bitcoin_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    android:layout_gravity="center"/>
+
+                <TextView
+                    android:id="@+id/last_bitcoin_price_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:textSize="12sp"/>
+
+
+            </LinearLayout>
 
         </androidx.cardview.widget.CardView>
 

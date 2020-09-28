@@ -67,7 +67,7 @@ class MainPresenter(
 
         val seriesData = ArrayList<DataEntry>()
         bitcoinPriceList.forEach {
-            seriesData.add(CustomDataChart(DateUtil.convertToTime(it.time), it.price))
+            seriesData.add(CustomDataChart(DateUtil.convertToTimeChart(it.time), it.price))
         }
 
         val set = Set.instantiate()
