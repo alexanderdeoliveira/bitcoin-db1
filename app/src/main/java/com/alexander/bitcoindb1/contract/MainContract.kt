@@ -9,9 +9,12 @@ interface MainContract {
         fun showLastBitcoinPrice()
         fun showBitcoinPriceChart()
         fun showSnackbarError()
+        fun showProgress()
+        fun hideProgress()
         fun setLastBitcoinPrice(bitcoinPrice: BitcoinPrice)
         fun setBitcoinChart(cartesian: Cartesian)
         fun setSpinner()
+        fun clearDataChart()
     }
 
     interface Presenter {

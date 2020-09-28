@@ -6,9 +6,9 @@ import java.util.*
 class DateUtil {
 
     companion object {
-        fun convertLongToTime(time: Long): String {
-            val date = Date(time)
-            val format = SimpleDateFormat("dd/MM")
+        fun convertToTime(time: Long): String {
+            val date = Date(time*1000)
+            val format = SimpleDateFormat("dd/MM/yy")
             return format.format(date)
         }
     }

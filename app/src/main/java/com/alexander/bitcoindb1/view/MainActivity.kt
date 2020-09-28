@@ -28,12 +28,12 @@ class MainActivity : AppCompatActivity(), MainContract.View, AdapterView.OnItemS
         super.onCreate(savedInstanceState)
 
         presenter.init()
-        presenter.getBitcoinPriceList(null)
     }
 
     override fun bindingView() {
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        any_chart_view.setProgressBar(progress)
     }
 
     override fun showLastBitcoinPrice() {
@@ -49,12 +49,19 @@ class MainActivity : AppCompatActivity(), MainContract.View, AdapterView.OnItemS
         snackbar.show()
     }
 
+    override fun showProgress() {
+        progress.isVisible = true
+    }
+
+    override fun hideProgress() {
+        progress.isVisible = false
+    }
+
     override fun setLastBitcoinPrice(bitcoinPrice: BitcoinPrice) {
         last_bitcoin_price.text = bitcoinPrice.price.toString()
     }
 
     override fun setBitcoinChart(cartesian: Cartesian) {
-        any_chart_view.setProgressBar(progress)
         any_chart_view.setChart(cartesian)
     }
 
@@ -65,9 +72,14 @@ class MainActivity : AppCompatActivity(), MainContract.View, AdapterView.OnItemS
             android.R.layout.simple_spinner_item
         ).also { adapter ->
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            spinner_timespan.onItemSelectedListener = this
             spinner_timespan.adapter = adapter
+            spinner_timespan.onItemSelectedListener = this
+            spinner_timespan.setSelection(3)
         }
+    }
+
+    override fun clearDataChart() {
+        any_chart_view.clear()
     }
 
     override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {

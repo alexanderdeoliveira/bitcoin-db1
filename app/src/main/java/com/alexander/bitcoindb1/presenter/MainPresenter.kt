@@ -29,9 +29,11 @@ class MainPresenter(
     override fun init() {
         disposable = CompositeDisposable()
         mView.bindingView()
+        mView.setSpinner()
     }
 
     override fun getBitcoinPriceList(timespan:String?) {
+        mView.showProgress()
         disposable.add(
             repository.requestBitcoinPriceList(timespan)
                 .observeOn(AndroidSchedulers.mainThread())
@@ -39,9 +41,13 @@ class MainPresenter(
                 .doOnError {
                     mView.showSnackbarError()
                 }
+                .doFinally {
+                    mView.hideProgress()
+                }
                 .subscribe { response ->
                     repository.insertBitcoinPriceList(response.bitcoinPriceList)
                     mView.run {
+//                        clearDataChart()
                         setBitcoinChart(setCharCartesian(response.bitcoinPriceList))
                         setLastBitcoinPrice(response.bitcoinPriceList[response.bitcoinPriceList.size - 1])
 
@@ -53,7 +59,7 @@ class MainPresenter(
     }
 
     override fun onTimespanSelected(timespan: String?) {
-        TODO("Not yet implemented")
+        getBitcoinPriceList(timespan)
     }
 
     private fun setCharCartesian(bitcoinPriceList: List<BitcoinPrice>): Cartesian {
@@ -61,7 +67,7 @@ class MainPresenter(
 
         val seriesData = ArrayList<DataEntry>()
         bitcoinPriceList.forEach {
-            seriesData.add(CustomDataChart(DateUtil.convertLongToTime(it.time), it.price))
+            seriesData.add(CustomDataChart(DateUtil.convertToTime(it.time), it.price))
         }
 
         val set = Set.instantiate()
@@ -78,13 +84,13 @@ class MainPresenter(
 
         cartesian.tooltip().positionMode(TooltipPositionMode.POINT)
 
-        cartesian.yAxis(0).title("Price US$")
+        cartesian.yAxis(0).title("US$")
         cartesian.xAxis(0).labels().padding(5.0, 5.0, 5.0, 5.0)
 
         val series1Mapping = set.mapAs("{ x: 'x', value: 'value' }")
 
         val series1 = cartesian.line(series1Mapping)
-        series1.name("Brandy")
+        series1.name("Bitcoin Market Price")
         series1.hovered().markers().enabled(true)
         series1.hovered().markers()
             .type(MarkerType.CIRCLE)

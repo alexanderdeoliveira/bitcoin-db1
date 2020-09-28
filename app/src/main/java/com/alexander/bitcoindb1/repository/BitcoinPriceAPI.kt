@@ -11,6 +11,6 @@ interface BitcoinPriceAPI {
     fun requestBitcoinPriceList(@Query("timespan") timespan:String?): Observable<BitcoinPriceListResponse>
 
     companion object {
-        const val BITCOIN_PRICE_LIST = "/charts/transactions-per-second"
+        const val BITCOIN_PRICE_LIST = "/charts/market-price"
     }
 }
