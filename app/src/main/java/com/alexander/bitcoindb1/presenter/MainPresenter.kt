@@ -1,9 +1,11 @@
 package com.alexander.bitcoindb1.presenter
 
+import com.alexander.bitcoindb1.R
 import com.alexander.bitcoindb1.contract.MainContract
 import com.alexander.bitcoindb1.model.BitcoinPrice
 import com.alexander.bitcoindb1.model.CustomDataChart
 import com.alexander.bitcoindb1.repository.BitcoinPriceRepository
+import com.alexander.bitcoindb1.util.DateUtil
 import com.anychart.AnyChart
 import com.anychart.chart.common.dataentry.DataEntry
 import com.anychart.charts.Cartesian
@@ -35,10 +37,18 @@ class MainPresenter(
             repository.requestBitcoinPriceList()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
+                .doOnError {
+                    mView.showSnackbarError()
+                }
                 .subscribe { response ->
                     repository.insertBitcoinPriceList(response.bitcoinPriceList)
-                    mView.setBitcoinPriceChart(setCharCartesian(response.bitcoinPriceList))
-                    mView.setLastBitcoinPrice(response.bitcoinPriceList[response.bitcoinPriceList.size - 1])
+                    mView.run {
+                        setBitcoinPriceChart(setCharCartesian(response.bitcoinPriceList))
+                        setLastBitcoinPrice(response.bitcoinPriceList[response.bitcoinPriceList.size - 1])
+
+                        showBitcoinPriceChart()
+                        showLastBitcoinPrice()
+                    }
                 }
         )
     }
@@ -48,7 +58,7 @@ class MainPresenter(
 
         val seriesData = ArrayList<DataEntry>()
         bitcoinPriceList.forEach {
-            seriesData.add(CustomDataChart(it.time, it.price))
+            seriesData.add(CustomDataChart(DateUtil.convertLongToTime(it.time), it.price))
         }
 
         val set = Set.instantiate()
@@ -60,14 +70,12 @@ class MainPresenter(
 
         cartesian.crosshair().enabled(true)
         cartesian.crosshair()
-            .yLabel(true) // TODO ystroke
+            .yLabel(true)
             .yStroke(null as Stroke?, null, null, null as String?, null as String?)
 
         cartesian.tooltip().positionMode(TooltipPositionMode.POINT)
 
-        cartesian.title("Trend of Sales of the Most Popular Products of ACME Corp.")
-
-        cartesian.yAxis(0).title("Number of Bottles Sold (thousands)")
+        cartesian.yAxis(0).title("Price US$")
         cartesian.xAxis(0).labels().padding(5.0, 5.0, 5.0, 5.0)
 
         val series1Mapping = set.mapAs("{ x: 'x', value: 'value' }")

@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">BitcoinDB1</string>
+    <string name="request_error_message">Não foi possível buscar evolução de preços. Tente novamente.</string>
+
 </resources>
