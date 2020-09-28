@@ -10,11 +10,13 @@ interface MainContract {
         fun showBitcoinPriceChart()
         fun showSnackbarError()
         fun setLastBitcoinPrice(bitcoinPrice: BitcoinPrice)
-        fun setBitcoinPriceChart(cartesian: Cartesian)
+        fun setBitcoinChart(cartesian: Cartesian)
+        fun setSpinner()
     }
 
     interface Presenter {
         fun init()
-        fun getBitcoinPriceList()
+        fun getBitcoinPriceList(timespan: String?)
+        fun onTimespanSelected(timespan: String?)
     }
 }

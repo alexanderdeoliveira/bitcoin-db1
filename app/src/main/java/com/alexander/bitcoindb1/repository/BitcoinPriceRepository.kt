@@ -13,8 +13,8 @@ class BitcoinPriceRepository(
 
     private var mAPI: BitcoinPriceAPI = retrofit.create(BitcoinPriceAPI::class.java)
 
-    fun requestBitcoinPriceList() : Observable<BitcoinPriceListResponse> {
-        return mAPI.requestBitcoinPriceList()
+    fun requestBitcoinPriceList(timespan:String?) : Observable<BitcoinPriceListResponse> {
+        return mAPI.requestBitcoinPriceList(timespan)
     }
 
     fun insertBitcoinPriceList(bitcoinPriceList: List<BitcoinPrice>) {

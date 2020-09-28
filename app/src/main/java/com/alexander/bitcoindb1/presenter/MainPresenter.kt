@@ -1,6 +1,5 @@
 package com.alexander.bitcoindb1.presenter
 
-import com.alexander.bitcoindb1.R
 import com.alexander.bitcoindb1.contract.MainContract
 import com.alexander.bitcoindb1.model.BitcoinPrice
 import com.alexander.bitcoindb1.model.CustomDataChart
@@ -32,9 +31,9 @@ class MainPresenter(
         mView.bindingView()
     }
 
-    override fun getBitcoinPriceList() {
+    override fun getBitcoinPriceList(timespan:String?) {
         disposable.add(
-            repository.requestBitcoinPriceList()
+            repository.requestBitcoinPriceList(timespan)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .doOnError {
@@ -43,7 +42,7 @@ class MainPresenter(
                 .subscribe { response ->
                     repository.insertBitcoinPriceList(response.bitcoinPriceList)
                     mView.run {
-                        setBitcoinPriceChart(setCharCartesian(response.bitcoinPriceList))
+                        setBitcoinChart(setCharCartesian(response.bitcoinPriceList))
                         setLastBitcoinPrice(response.bitcoinPriceList[response.bitcoinPriceList.size - 1])
 
                         showBitcoinPriceChart()
@@ -51,6 +50,10 @@ class MainPresenter(
                     }
                 }
         )
+    }
+
+    override fun onTimespanSelected(timespan: String?) {
+        TODO("Not yet implemented")
     }
 
     private fun setCharCartesian(bitcoinPriceList: List<BitcoinPrice>): Cartesian {

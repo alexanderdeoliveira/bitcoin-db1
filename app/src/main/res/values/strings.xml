@@ -2,4 +2,21 @@
     <string name="app_name">BitcoinDB1</string>
     <string name="request_error_message">Não foi possível buscar evolução de preços. Tente novamente.</string>
 
+    <string-array name="time_span_array">
+        <item>30 dias</item>
+        <item>60 dias</item>
+        <item>180 dias</item>
+        <item>1 ano</item>
+        <item>3 anos</item>
+        <item>Tempo todo</item>
+    </string-array>
+
+    <string-array name="time_span_array_request">
+        <item>30days</item>
+        <item>60days</item>
+        <item>180days</item>
+        <item>1year</item>
+        <item>3year</item>
+    </string-array>
+
 </resources>
